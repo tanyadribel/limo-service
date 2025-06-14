@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Milwaukee Fly Limo</title>
+  <meta name="description" content="Milwaukee Fly Limo, a leading limousine and transportation service provider, proudly serves Milwaukee, Wisconsin, and its neighboring areas, including Chicago, Illinois. Specializing in a wide array of premium transportation solutions, we cater to individual clients, businesses, and event organizers who prioritize reliability and comfort. Our licensed service features a team of professional, experienced chauffeurs and a contemporary fleet of luxurious SUV limousines, including the latest 2023 models. We offer diverse services such as black car service, livery service, airport shuttle service, and chauffeur service, all meticulously designed to meet your unique transportation needs. Top requested routes include efficient airport transfers to and from General Mitchell International Airport (MKE), O'Hare International Airport (ORD), Midway International Airport (MDW), and connections to Chicago. Additionally, we provide point-to-point transit to popular destinations like Lambeau Field, Millennium Park, McCormick Place, and other significant landmarks in Milwaukee and Chicago. At Milwaukee Fly Limo, punctuality is paramount, guaranteeing timely pickups and drop-offs to keep your schedule on track. Whether you're heading to a Green Bay Packers game, a Chicago Cubs match, a bachelorette or bachelor party, Summerfest, Lollapalooza, a golf outing, or a wine tour, our services ensure a luxurious and seamless travel experience. We extend our services to cover Cook County, DuPage County, Kenosha County, Racine County, and Sheboygan County, ensuring a broad reach for our valued customers. Our strong customer-focused approach, combined with transparent pricing and no hidden fees, ensures a personalized, stress-free experience. Safety and professionalism are our top priorities, promising you a secure and smooth ride every time you travel with us. Choose Milwaukee Fly Limo for your luxury transportation needs and enjoy the seamless blend of luxury, convenience, and exceptional service that defines our brand. Experience the highest standards of customer satisfaction and make your travels memorable with Milwaukee Fly Limo.">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+  
+  <!-- City Structured Data -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Milwaukee Fly Limo",
+  "description": "Milwaukee Fly Limo, a leading limousine and transportation service provider, proudly serves Milwaukee, Wisconsin, and its neighboring areas, including Chicago, Illinois. Specializing in a wide array of premium transportation solutions, we cater to individual clients, businesses, and event organizers who prioritize reliability and comfort. Our licensed service features a team of professional, experienced chauffeurs and a contemporary fleet of luxurious SUV limousines, including the latest 2023 models. We offer diverse services such as black car service, livery service, airport shuttle service, and chauffeur service, all meticulously designed to meet your unique transportation needs. Top requested routes include efficient airport transfers to and from General Mitchell International Airport (MKE), O'Hare International Airport (ORD), Midway International Airport (MDW), and connections to Chicago. Additionally, we provide point-to-point transit to popular destinations like Lambeau Field, Millennium Park, McCormick Place, and other significant landmarks in Milwaukee and Chicago. At Milwaukee Fly Limo, punctuality is paramount, guaranteeing timely pickups and drop-offs to keep your schedule on track. Whether you're heading to a Green Bay Packers game, a Chicago Cubs match, a bachelorette or bachelor party, Summerfest, Lollapalooza, a golf outing, or a wine tour, our services ensure a luxurious and seamless travel experience. We extend our services to cover Cook County, DuPage County, Kenosha County, Racine County, and Sheboygan County, ensuring a broad reach for our valued customers. Our strong customer-focused approach, combined with transparent pricing and no hidden fees, ensures a personalized, stress-free experience. Safety and professionalism are our top priorities, promising you a secure and smooth ride every time you travel with us. Choose Milwaukee Fly Limo for your luxury transportation needs and enjoy the seamless blend of luxury, convenience, and exceptional service that defines our brand. Experience the highest standards of customer satisfaction and make your travels memorable with Milwaukee Fly Limo.",
+  "mainEntity": [
+    {
+      "@type": "Place",
+      "name": "San Francisco",
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 37.7749,
+        "longitude": -122.4194
+      }
+    },
+    {
+      "@type": "Place",
+      "name": "Winneconne",
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 44.1108,
+        "longitude": -88.7154
+      }
+    }
+  ]
+}
+</script>
+  
+  <!-- Custom Structured Data -->
+  <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Milwaukee Fly Limo",
+  "logo": "https://milwaukeeflylimo.com/wp-content/uploads/2024/06/03-file-mod-4.png",
+  "image": "https://milwaukeeflylimo.com/wp-content/uploads/2024/07/limo-service-milwaukee-scaled.jpeg",
+  "description": "Milwaukee Fly Limo, a leading limousine and transportation service provider, proudly serves Milwaukee, Wisconsin, and its neighboring areas, including Chicago, Illinois. Specializing in a wide array of premium transportation solutions, we cater to individual clients, businesses, and event organizers who prioritize reliability and comfort. Our licensed service features a team of professional, experienced chauffeurs and a contemporary fleet of luxurious SUV limousines, including the latest 2023 models. We offer diverse services such as black car service, livery service, airport shuttle service, and chauffeur service, all meticulously designed to meet your unique transportation needs. Top requested routes include efficient airport transfers to and from General Mitchell International Airport (MKE), O'Hare International Airport (ORD), Midway International Airport (MDW), and connections to Chicago. Additionally, we provide point-to-point transit to popular destinations like Lambeau Field, Millennium Park, McCormick Place, and other significant landmarks in Milwaukee and Chicago. At Milwaukee Fly Limo, punctuality is paramount, guaranteeing timely pickups and drop-offs to keep your schedule on track. Whether you're heading to a Green Bay Packers game, a Chicago Cubs match, a bachelorette or bachelor party, Summerfest, Lollapalooza, a golf outing, or a wine tour, our services ensure a luxurious and seamless travel experience. We extend our services to cover Cook County, DuPage County, Kenosha County, Racine County, and Sheboygan County, ensuring a broad reach for our valued customers. Our strong customer-focused approach, combined with transparent pricing and no hidden fees, ensures a personalized, stress-free experience. Safety and professionalism are our top priorities, promising you a secure and smooth ride every time you travel with us. Choose Milwaukee Fly Limo for your luxury transportation needs and enjoy the seamless blend of luxury, convenience, and exceptional service that defines our brand. Experience the highest standards of customer satisfaction and make your travels memorable with Milwaukee Fly Limo.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "10820 W National Ave.",
+    "addressLocality": "West Allis",
+    "addressRegion": "WI",
+    "postalCode": "53227",
+    "addressCountry": "US"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+1-414-255-5537",
+    "contactType": "Booking",
+    "email": "Booking@milwaukeeflylimo.com"
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ],
+    "opens": "00:00",
+    "closes": "23:59"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "42.99363340",
+    "longitude": "-88.04796040"
+  },
+  "areaServed": [
+    {
+      "@type": "Place",
+      "name": "Milwaukee, WI"
+    },
+    {
+      "@type": "Place",
+      "name": "Chicago, IL"
+    },
+    {
+      "@type": "Place",
+      "name": "Cook County, IL"
+    },
+    {
+      "@type": "Place",
+      "name": "DuPage County, IL"
+    },
+    {
+      "@type": "Place",
+      "name": "Kenosha County, WI"
+    },
+    {
+      "@type": "Place",
+      "name": "Racine County, WI"
+    },
+    {
+      "@type": "Place",
+      "name": "Sheboygan County, WI"
+    }
+  ],
+  "service": [
+    {
+      "@type": "Service",
+      "name": "Limousine Service",
+      "category": "Limo Service",
+      "additionalType": [
+        "Airport Shuttle Service",
+        "Chauffeur Service",
+        "Transportation Service",
+        "Wedding Service",
+        "Charter Limousine",
+        "Corporate Limousine",
+        "ORD Limo Service",
+        "MKE Limo Service",
+        "Point To Point Limousine",
+        "MDW Limousine",
+        "Black Car Service",
+        "Livery Service"
+      ],
+      "description": "Top rated customer service, 2023 SUV models, No hidden fees, Always on time, Licensed, Flawless airport transfers"
+    }
+  ]
+}
+</script>
+  
+  <style>
+    body { 
+      margin: 0; 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      display: flex; 
+      height: 100vh; 
+      background: #f8fafc;
+    }
+    #map { 
+      flex: 1;
+      border-radius: 0 12px 12px 0;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    }
+    .sidebar { 
+      width: 320px; 
+      padding: 24px; 
+      background: white;
+      overflow: auto;
+      border-radius: 12px 0 0 12px;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    }
+    .title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #1e293b;
+      text-align: center;
+    }
+    .tab { 
+      padding: 12px 16px; 
+      margin-bottom: 8px; 
+      background: #f8fafc; 
+      border: 1px solid #e2e8f0; 
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-weight: 500;
+    }
+    .tab:hover {
+      background: #e2e8f0;
+      transform: translateY(-1px);
+    }
+    .tab.active { 
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      border-color: #1d4ed8;
+      box-shadow: 0 4px 6px -1px rgb(59 130 246 / 0.3);
+    }
+    .tab-subtitle {
+      font-size: 0.75rem;
+      opacity: 0.8;
+      margin-left: 4px;
+    }
+    .global-content {
+      margin-bottom: 16px;
+      padding: 12px;
+      background: #f1f5f9;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      color: #475569;
+    }
+    .attribution {
+      margin-top: 20px;
+      padding: 12px;
+      background: #f1f5f9;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      color: #64748b;
+      text-align: center;
+    }
+    .social-links a {
+      color: #3b82f6;
+      text-decoration: none;
+    }
+    .social-links a:hover {
+      text-decoration: underline;
+    }
+    .pagination-links a:hover {
+      background: #1d4ed8 !important;
+      transform: translateY(-1px);
+    }
+    .show-more-btn {
+      width: 100%;
+      padding: 10px;
+      margin: 12px 0;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .show-more-btn:hover {
+      background: #e2e8f0;
+    }
+    .seo-city-list {
+      opacity: 0.7;
+    }
+    @media (max-width: 768px) {
+      body { flex-direction: column; }
+      .sidebar { width: 100%; border-radius: 12px 12px 0 0; }
+      #map { border-radius: 0 0 12px 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <div class="title">Milwaukee Fly Limo</div>
+    <div class="global-content"><h2>Milwaukee Fly Limo</h2>
+<p>Milwaukee Fly Limo, a leading limousine and transportation service provider, proudly serves Milwaukee, Wisconsin, and its neighboring areas, including Chicago, Illinois. Specializing in a wide array of premium transportation solutions, we cater to individual clients, businesses, and event organizers who prioritize reliability and comfort. Our licensed service features a team of professional, experienced chauffeurs and a contemporary fleet of luxurious SUV limousines, including the latest 2023 models. We offer diverse services such as black car service, livery service, airport shuttle service, and chauffeur service, all meticulously designed to meet your unique transportation needs. Top requested routes include efficient airport transfers to and from General Mitchell International Airport (MKE), O'Hare International Airport (ORD), Midway International Airport (MDW), and connections to Chicago. Additionally, we provide point-to-point transit to popular destinations like Lambeau Field, Millennium Park, McCormick Place, and other significant landmarks in Milwaukee and Chicago. At Milwaukee Fly Limo, punctuality is paramount, guaranteeing timely pickups and drop-offs to keep your schedule on track. Whether you're heading to a Green Bay Packers game, a Chicago Cubs match, a bachelorette or bachelor party, Summerfest, Lollapalooza, a golf outing, or a wine tour, our services ensure a luxurious and seamless travel experience. We extend our services to cover Cook County, DuPage County, Kenosha County, Racine County, and Sheboygan County, ensuring a broad reach for our valued customers. Our strong customer-focused approach, combined with transparent pricing and no hidden fees, ensures a personalized, stress-free experience. Safety and professionalism are our top priorities, promising you a secure and smooth ride every time you travel with us. Choose Milwaukee Fly Limo for your luxury transportation needs and enjoy the seamless blend of luxury, convenience, and exceptional service that defines our brand. Experience the highest standards of customer satisfaction and make your travels memorable with Milwaukee Fly Limo.</p>
+<p><strong>Address:</strong> 10820 W National Ave., West Allis, WI, 53227</p>
+<p><strong>Phone:</strong> +1-414-255-5537</p>
+<p><strong>Email:</strong> Booking@milwaukeeflylimo.com</p>
+<p><strong>Hours:</strong> Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday: 00:00 - 23:59</p><p><div style="margin: 20px 0; text-align: center;"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2918.270737299556!2d-88.0479604!3d42.9936334!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88050f753ea9c9fb%3A0xe2aceddb5b400789!2sMilwaukee%20Fly%20Limo!5e0!3m2!1sen!2sus!4v1749917683643!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div><br></p>
+</div>
+    
+    <div id="tabs"></div>
+    
+    
+    <div class="social-links" style="margin-top: 16px; padding-top: 12px; border-top: 1px solid #e2e8f0;">
+      <h4 style="margin: 0 0 8px 0; font-size: 0.9rem; font-weight: 600; color: #374151;">Find Us on the Web</h4>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+        <span style="font-size: 0.8rem;"><a href="http://milwaukeeflylimo.com" target="_blank">Visit Website</a></span> • <span style="font-size: 0.8rem;"><a href="https://www.facebook.com/MilwaukeeFlyLimo" target="_blank">Facebook</a></span> • <span style="font-size: 0.8rem;"><a href="https://x.com/MKELimousine" target="_blank">Twitter</a></span> • <span style="font-size: 0.8rem;"><a href="https://www.linkedin.com/company/milwaukee-fly-limo/about/?viewAsMember=true" target="_blank">LinkedIn</a></span>
+      </div>
+    </div>
+  
+    <div class="attribution">
+      Built with Interactive Map Builder<br>
+      Map data &copy; OpenStreetMap contributors
+    </div>
+  </div>
+  <div id="map"></div>
+  
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script>
+    // ========== MAP DATA ==========
+    const cities = [
+      {
+            "id": "san-francisco-ca",
+            "name": "San Francisco",
+            "state": "CA",
+            "lat": 37.7749,
+            "lng": -122.4194,
+            "zoom": 12,
+            "popupHtml": "<h3>San Francisco</h3>\n<p>The Golden Gate City with stunning views and tech innovation.</p>\n<a href=\"https://example.com\" target=\"_blank\">Learn More →</a>",
+            "placeType": "city",
+            "anchor": "San Francisco CA",
+            "popupTitle": "San Francisco",
+            "popupHeadingTag": "h3"
+      },
+      {
+            "id": "winneconne-wi",
+            "name": "Winneconne",
+            "state": "WI",
+            "lat": 44.1108,
+            "lng": -88.7154,
+            "zoom": 13,
+            "popupHtml": "<h3>Winneconne</h3>\n<p>A charming small town in Wisconsin.</p>\n<a href=\"https://example.org\" target=\"_blank\">Explore →</a>",
+            "placeType": "city",
+            "anchor": "Winneconne WI",
+            "popupTitle": "Winneconne",
+            "popupHeadingTag": "h3"
+      }
+];
+    const showAllCities = false;
+    const maxCitiesPerPage = 50;
+    // =============================
+
+    if (!cities.length) {
+      document.getElementById('sidebar').innerHTML = '<div class="title">No locations configured</div>';
+      document.getElementById('map').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#64748b;">Add locations to display map</div>';
+    } else {
+      // Initialize map with proper coordinate format
+      const firstCity = cities[0];
+      const firstCityCoords = [firstCity.lat, firstCity.lng];
+      
+      const map = L.map('map').setView(firstCityCoords, firstCity.zoom);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      // Single marker for reuse
+      let marker = L.marker(firstCityCoords)
+        .addTo(map)
+        .bindPopup(firstCity.popupHtml)
+        .openPopup();
+
+      // Build sidebar tabs with optional pagination
+      const tabsContainer = document.getElementById('tabs');
+      let showingAll = showAllCities;
+      
+      const renderTabs = () => {
+        const citiesToShow = showingAll ? cities : cities.slice(0, maxCitiesPerPage);
+        
+        tabsContainer.innerHTML = '';
+        
+        citiesToShow.forEach((city, idx) => {
+          const tab = document.createElement('div');
+          tab.className = 'tab' + (idx === 0 ? ' active' : '');
+          tab.innerHTML = `${city.name}${city.state ? `<span class="tab-subtitle">(${city.state})</span>` : ''}`;
+          tab.onclick = () => {
+            // Switch active tab
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            // Pan/zoom map with proper coordinate format
+            const cityCoords = [city.lat, city.lng];
+            map.setView(cityCoords, city.zoom, { animate: true });
+            // Move marker and update popup
+            marker.setLatLng(cityCoords)
+                  .setPopupContent(city.popupHtml)
+                  .openPopup();
+          };
+          tabsContainer.appendChild(tab);
+        });
+        
+        // Add show more/less button if needed
+        if (!showAllCities && cities.length > maxCitiesPerPage) {
+          const showMoreBtn = document.createElement('button');
+          showMoreBtn.className = 'show-more-btn';
+          showMoreBtn.innerHTML = showingAll ? 
+            `Show less (first ${maxCitiesPerPage})` : 
+            `Show all ${cities.length} locations`;
+          showMoreBtn.onclick = () => {
+            showingAll = !showingAll;
+            renderTabs();
+          };
+          tabsContainer.appendChild(showMoreBtn);
+        }
+      };
+      
+      renderTabs();
+    }
+  </script>
+</body>
+</html>
