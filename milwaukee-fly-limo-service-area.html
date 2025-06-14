@@ -302,15 +302,28 @@
     const maxCitiesPerPage = 50;
     // =============================
 
-    if (!cities.length) {
+    console.log('Cities data:', cities);
+    console.log('First city structure:', cities[0]);
+
+    if (!cities || !cities.length) {
       document.getElementById('sidebar').innerHTML = '<div class="title">No locations configured</div>';
       document.getElementById('map').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#64748b;">Add locations to display map</div>';
     } else {
-      // Initialize map with proper coordinate format
+      // Initialize map with proper coordinate format and validation
       const firstCity = cities[0];
-      const firstCityCoords = [firstCity.lat, firstCity.lng];
+      console.log('First city lat/lng:', firstCity.lat, firstCity.lng);
       
-      const map = L.map('map').setView(firstCityCoords, firstCity.zoom);
+      // Validate coordinates exist and are numbers
+      if (typeof firstCity.lat !== 'number' || typeof firstCity.lng !== 'number') {
+        console.error('Invalid coordinates for first city:', firstCity);
+        document.getElementById('map').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#dc2626;">Invalid location coordinates</div>';
+        return;
+      }
+      
+      const firstCityCoords = [firstCity.lat, firstCity.lng];
+      const firstCityZoom = firstCity.zoom || 12;
+      
+      const map = L.map('map').setView(firstCityCoords, firstCityZoom);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(map);
@@ -318,7 +331,7 @@
       // Single marker for reuse
       let marker = L.marker(firstCityCoords)
         .addTo(map)
-        .bindPopup(firstCity.popupHtml)
+        .bindPopup(firstCity.popupHtml || firstCity.name)
         .openPopup();
 
       // Build sidebar tabs with optional pagination
@@ -331,6 +344,12 @@
         tabsContainer.innerHTML = '';
         
         citiesToShow.forEach((city, idx) => {
+          // Validate each city's coordinates
+          if (typeof city.lat !== 'number' || typeof city.lng !== 'number') {
+            console.warn('Invalid coordinates for city:', city.name, city);
+            return;
+          }
+          
           const tab = document.createElement('div');
           tab.className = 'tab' + (idx === 0 ? ' active' : '');
           tab.innerHTML = `${city.name}${city.state ? `<span class="tab-subtitle">(${city.state})</span>` : ''}`;
@@ -338,12 +357,14 @@
             // Switch active tab
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
-            // Pan/zoom map with proper coordinate format
+            // Pan/zoom map with proper coordinate format and validation
             const cityCoords = [city.lat, city.lng];
-            map.setView(cityCoords, city.zoom, { animate: true });
+            const cityZoom = city.zoom || 12;
+            console.log('Switching to city:', city.name, cityCoords, cityZoom);
+            map.setView(cityCoords, cityZoom, { animate: true });
             // Move marker and update popup
             marker.setLatLng(cityCoords)
-                  .setPopupContent(city.popupHtml)
+                  .setPopupContent(city.popupHtml || city.name)
                   .openPopup();
           };
           tabsContainer.appendChild(tab);
