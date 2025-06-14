@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Milwaukee Fly Limo</title>
@@ -59,8 +60,8 @@
       "name": "Midway Airport",
       "geo": {
         "@type": "GeoCoordinates",
-        "latitude": 49.0098701,
-        "longitude": -118.7893961
+        "latitude": 41.7855141,
+        "longitude": -87.7517243
       },
       "sameAs": "https://en.wikipedia.org/wiki/Midway_International_Airport"
     }
@@ -168,7 +169,9 @@
   <!-- Leaflet CSS loaded directly -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   
+  
   <style>
+    
     body { 
       margin: 0; 
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
@@ -377,9 +380,11 @@
         height: 180px;
       }
     }
+  
   </style>
 </head>
 <body>
+  
   <div class="sidebar" id="sidebar">
     <div class="title">Milwaukee Fly Limo</div>
     <div class="global-content"><h2>Milwaukee Fly Limo</h2>
@@ -407,8 +412,10 @@
   </div>
   <div id="map"></div>
   
+  
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script>
+    
     (function() {
       // ========== MAP DATA ==========
       const cities = [
@@ -471,10 +478,11 @@
             "popupHeadingTag": "h3"
       },
       {
-            "id": "midway-airport",
+            "id": "midway-airport-il",
             "name": "Midway Airport",
-            "lat": 49.0098701,
-            "lng": -118.7893961,
+            "state": "IL",
+            "lat": 41.7855141,
+            "lng": -87.7517243,
             "zoom": 12,
             "popupHtml": "<h2>Midway Airport</h2>\nA distinguished transportation service provider caters to the needs of clients in Milwaukee, Wisconsin, and its surrounding regions, including Chicago, Illinois. This company specializes in a variety of premium transportation solutions, catering to individual clients, businesses, and event organizers who value reliability and comfort. The service boasts a team of professional, experienced chauffeurs and a contemporary fleet of luxurious SUV limousines, including the latest 2023 models.\n\nThe company offers diverse services such as black car service, livery service, airport shuttle service, and chauffeur service, all tailored to meet the unique transportation needs of its clients. Top requested routes include efficient airport transfers to and from General Mitchell International Airport (MKE), O'Hare International Airport (ORD), Midway International Airport (MDW), and connections to Chicago. Additionally, the service provides point-to-point transit to popular destinations like Lambeau Field, Millennium Park, McCormick Place, and other significant landmarks in Milwaukee and Chicago.\n\nPunctuality is a priority for this service, ensuring timely pickups and drop-offs to keep clients' schedules on track. Whether clients are heading to a Green Bay Packers game, a Chicago Cubs match, a bachelorette or bachelor party, Summerfest, Lollapalooza, a golf outing, or a wine tour, the service ensures a luxurious and seamless travel experience. The service extends its reach to cover Cook County, DuPage County, Kenosha County, Racine County, and Sheboygan County, ensuring a broad reach for its valued customers.\n\nThe company's strong customer-focused approach, combined with transparent pricing and no hidden fees, ensures a personalized, stress-free experience. Safety and professionalism are the top priorities, promising clients a secure and smooth ride every time they travel with the service. Choose this service for your luxury transportation needs and enjoy the seamless blend of luxury, convenience, and exceptional service. Experience the highest standards of customer satisfaction and make your travels memorable with this service.",
             "placeType": "city",
@@ -488,6 +496,22 @@
       const showAllCities = false;
       const maxCitiesPerPage = 50;
       // =============================
+
+      function enhancePopupContent(city) {
+        let popupContent = city.popupHtml || city.name;
+        
+        // Add custom URL link if available
+        if (city.url && city.anchor) {
+          popupContent += '<div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee;"><a href="' + city.url + '" target="_blank" style="color: #0066cc; text-decoration: none; font-size: 14px;">🔗 ' + city.anchor + ' →</a></div>';
+        }
+        
+        // Add Wikipedia link if available
+        if (city.wikipediaUrl) {
+          popupContent += '<div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee;"><a href="' + city.wikipediaUrl + '" target="_blank" style="color: #0066cc; text-decoration: none; font-size: 14px;">📖 Read more on Wikipedia →</a></div>';
+        }
+        
+        return popupContent;
+      }
 
       function initializeMap() {
         console.log('Initializing map...');
@@ -520,10 +544,10 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           }).addTo(map);
 
-          // Single marker for reuse
+          // Single marker for reuse with enhanced popup content
           let marker = L.marker(firstCityCoords)
             .addTo(map)
-            .bindPopup(firstCity.popupHtml || firstCity.name)
+            .bindPopup(enhancePopupContent(firstCity))
             .openPopup();
 
           // Build sidebar tabs with optional pagination
@@ -556,9 +580,9 @@
                 const cityZoom = city.zoom || 12;
                 console.log('Switching to city:', city.name, cityCoords, cityZoom);
                 map.setView(cityCoords, cityZoom, { animate: true });
-                // Move marker and update popup
+                // Move marker and update popup with enhanced content
                 marker.setLatLng(cityCoords)
-                      .setPopupContent(city.popupHtml || city.name)
+                      .setPopupContent(enhancePopupContent(city))
                       .openPopup();
               };
               tabsContainer.appendChild(tab);
@@ -599,6 +623,7 @@
       // Start checking
       checkAndInit();
     })();
+  
   </script>
 </body>
 </html>
