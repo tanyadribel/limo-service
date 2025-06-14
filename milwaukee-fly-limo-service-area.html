@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Milwaukee Fly Limo</title>
   <meta name="description" content="Milwaukee Fly Limo, a leading limousine and transportation service provider, proudly serves Milwaukee, Wisconsin, and its neighboring areas, including Chicago, Illinois. Specializing in a wide array of premium transportation solutions, we cater to individual clients, businesses, and event organizers who prioritize reliability and comfort. Our licensed service features a team of professional, experienced chauffeurs and a contemporary fleet of luxurious SUV limousines, including the latest 2023 models. We offer diverse services such as black car service, livery service, airport shuttle service, and chauffeur service, all meticulously designed to meet your unique transportation needs. Top requested routes include efficient airport transfers to and from General Mitchell International Airport (MKE), O'Hare International Airport (ORD), Midway International Airport (MDW), and connections to Chicago. Additionally, we provide point-to-point transit to popular destinations like Lambeau Field, Millennium Park, McCormick Place, and other significant landmarks in Milwaukee and Chicago. At Milwaukee Fly Limo, punctuality is paramount, guaranteeing timely pickups and drop-offs to keep your schedule on track. Whether you're heading to a Green Bay Packers game, a Chicago Cubs match, a bachelorette or bachelor party, Summerfest, Lollapalooza, a golf outing, or a wine tour, our services ensure a luxurious and seamless travel experience. We extend our services to cover Cook County, DuPage County, Kenosha County, Racine County, and Sheboygan County, ensuring a broad reach for our valued customers. Our strong customer-focused approach, combined with transparent pricing and no hidden fees, ensures a personalized, stress-free experience. Safety and professionalism are our top priorities, promising you a secure and smooth ride every time you travel with us. Choose Milwaukee Fly Limo for your luxury transportation needs and enjoy the seamless blend of luxury, convenience, and exceptional service that defines our brand. Experience the highest standards of customer satisfaction and make your travels memorable with Milwaukee Fly Limo.">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
   
   <!-- City Structured Data -->
   <script type="application/ld+json">
@@ -317,6 +316,30 @@
       box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
     }
     
+    /* Leaflet CSS overrides */
+    .leaflet-container {
+      font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+    }
+    .leaflet-popup-content-wrapper {
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .leaflet-popup-content {
+      margin: 12px 16px;
+      line-height: 1.5;
+    }
+    .leaflet-popup-tip {
+      width: 12px;
+      height: 12px;
+    }
+    .leaflet-control-zoom a {
+      border-radius: 4px;
+    }
+    .leaflet-bar {
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
     @media (max-width: 768px) {
       body { flex-direction: column; }
       .sidebar { 
@@ -381,10 +404,13 @@
   </div>
   <div id="map"></div>
   
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script>
-    // ========== MAP DATA ==========
-    const cities = [
+    // Wait for Leaflet to load before initializing
+    function initializeMap() {
+      // ========== MAP DATA ==========
+      const cities = [
       {
             "id": "milwaukee-wi",
             "name": "Milwaukee",
@@ -458,17 +484,20 @@
             "popupHeadingTag": "h3"
       }
 ];
-    const showAllCities = false;
-    const maxCitiesPerPage = 50;
-    // =============================
+      const showAllCities = false;
+      const maxCitiesPerPage = 50;
+      // =============================
 
-    console.log('Cities data:', cities);
-    console.log('First city structure:', cities[0]);
+      console.log('Leaflet loaded:', typeof L !== 'undefined');
+      console.log('Cities data:', cities);
+      console.log('First city structure:', cities[0]);
 
-    if (!cities || !cities.length) {
-      document.getElementById('sidebar').innerHTML = '<div class="title">No locations configured</div>';
-      document.getElementById('map').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#64748b;">Add locations to display map</div>';
-    } else {
+      if (!cities || !cities.length) {
+        document.getElementById('sidebar').innerHTML = '<div class="title">No locations configured</div>';
+        document.getElementById('map').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#64748b;">Add locations to display map</div>';
+        return;
+      }
+
       // Initialize map with proper coordinate format and validation
       const firstCity = cities[0];
       console.log('First city lat/lng:', firstCity.lat, firstCity.lng);
@@ -480,72 +509,88 @@
         return;
       }
       
-      const firstCityCoords = [firstCity.lat, firstCity.lng];
-      const firstCityZoom = firstCity.zoom || 12;
-      
-      const map = L.map('map').setView(firstCityCoords, firstCityZoom);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      }).addTo(map);
-
-      // Single marker for reuse
-      let marker = L.marker(firstCityCoords)
-        .addTo(map)
-        .bindPopup(firstCity.popupHtml || firstCity.name)
-        .openPopup();
-
-      // Build sidebar tabs with optional pagination
-      const tabsContainer = document.getElementById('tabs');
-      let showingAll = showAllCities;
-      
-      const renderTabs = () => {
-        const citiesToShow = showingAll ? cities : cities.slice(0, maxCitiesPerPage);
+      try {
+        const firstCityCoords = [firstCity.lat, firstCity.lng];
+        const firstCityZoom = firstCity.zoom || 12;
         
-        tabsContainer.innerHTML = '';
+        const map = L.map('map').setView(firstCityCoords, firstCityZoom);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Single marker for reuse
+        let marker = L.marker(firstCityCoords)
+          .addTo(map)
+          .bindPopup(firstCity.popupHtml || firstCity.name)
+          .openPopup();
+
+        // Build sidebar tabs with optional pagination
+        const tabsContainer = document.getElementById('tabs');
+        let showingAll = showAllCities;
         
-        citiesToShow.forEach((city, idx) => {
-          // Validate each city's coordinates
-          if (typeof city.lat !== 'number' || typeof city.lng !== 'number') {
-            console.warn('Invalid coordinates for city:', city.name, city);
-            return;
-          }
+        const renderTabs = () => {
+          const citiesToShow = showingAll ? cities : cities.slice(0, maxCitiesPerPage);
           
-          const tab = document.createElement('div');
-          tab.className = 'tab' + (idx === 0 ? ' active' : '');
-          tab.innerHTML = `${city.name}${city.state ? `<span class="tab-subtitle">(${city.state})</span>` : ''}`;
-          tab.onclick = () => {
-            // Switch active tab
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            // Pan/zoom map with proper coordinate format and validation
-            const cityCoords = [city.lat, city.lng];
-            const cityZoom = city.zoom || 12;
-            console.log('Switching to city:', city.name, cityCoords, cityZoom);
-            map.setView(cityCoords, cityZoom, { animate: true });
-            // Move marker and update popup
-            marker.setLatLng(cityCoords)
-                  .setPopupContent(city.popupHtml || city.name)
-                  .openPopup();
-          };
-          tabsContainer.appendChild(tab);
-        });
+          tabsContainer.innerHTML = '';
+          
+          citiesToShow.forEach((city, idx) => {
+            // Validate each city's coordinates
+            if (typeof city.lat !== 'number' || typeof city.lng !== 'number') {
+              console.warn('Invalid coordinates for city:', city.name, city);
+              return;
+            }
+            
+            const tab = document.createElement('div');
+            tab.className = 'tab' + (idx === 0 ? ' active' : '');
+            tab.innerHTML = city.name + (city.state ? '<span class="tab-subtitle">(' + city.state + ')</span>' : '');
+            tab.onclick = () => {
+              // Switch active tab
+              document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+              tab.classList.add('active');
+              // Pan/zoom map with proper coordinate format and validation
+              const cityCoords = [city.lat, city.lng];
+              const cityZoom = city.zoom || 12;
+              console.log('Switching to city:', city.name, cityCoords, cityZoom);
+              map.setView(cityCoords, cityZoom, { animate: true });
+              // Move marker and update popup
+              marker.setLatLng(cityCoords)
+                    .setPopupContent(city.popupHtml || city.name)
+                    .openPopup();
+            };
+            tabsContainer.appendChild(tab);
+          });
+          
+          // Add show more/less button if needed
+          if (!showAllCities && cities.length > maxCitiesPerPage) {
+            const showMoreBtn = document.createElement('button');
+            showMoreBtn.className = 'show-more-btn';
+            showMoreBtn.innerHTML = showingAll ? 
+              'Show less (first ' + maxCitiesPerPage + ')' : 
+              'Show all ' + cities.length + ' locations';
+            showMoreBtn.onclick = () => {
+              showingAll = !showingAll;
+              renderTabs();
+            };
+            tabsContainer.appendChild(showMoreBtn);
+          }
+        };
         
-        // Add show more/less button if needed
-        if (!showAllCities && cities.length > maxCitiesPerPage) {
-          const showMoreBtn = document.createElement('button');
-          showMoreBtn.className = 'show-more-btn';
-          showMoreBtn.innerHTML = showingAll ? 
-            `Show less (first ${maxCitiesPerPage})` : 
-            `Show all ${cities.length} locations`;
-          showMoreBtn.onclick = () => {
-            showingAll = !showingAll;
-            renderTabs();
-          };
-          tabsContainer.appendChild(showMoreBtn);
-        }
-      };
-      
-      renderTabs();
+        renderTabs();
+        
+      } catch (error) {
+        console.error('Error initializing map:', error);
+        document.getElementById('map').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#dc2626;">Error loading map: ' + error.message + '</div>';
+      }
+    }
+
+    // Initialize when page loads and Leaflet is available
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        // Small delay to ensure Leaflet CSS/JS is fully loaded
+        setTimeout(initializeMap, 100);
+      });
+    } else {
+      setTimeout(initializeMap, 100);
     }
   </script>
 </body>
