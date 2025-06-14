@@ -17,21 +17,53 @@
   "mainEntity": [
     {
       "@type": "Place",
-      "name": "San Francisco",
+      "name": "Milwaukee",
       "geo": {
         "@type": "GeoCoordinates",
-        "latitude": 37.7749,
-        "longitude": -122.4194
-      }
+        "latitude": 43.0386475,
+        "longitude": -87.9090751
+      },
+      "sameAs": "https://en.wikipedia.org/wiki/Milwaukee"
     },
     {
       "@type": "Place",
-      "name": "Winneconne",
+      "name": "Mequon",
       "geo": {
         "@type": "GeoCoordinates",
-        "latitude": 44.1108,
-        "longitude": -88.7154
-      }
+        "latitude": 43.2219088,
+        "longitude": -87.9822969
+      },
+      "sameAs": "https://en.wikipedia.org/wiki/Mequon%2C_Wisconsin"
+    },
+    {
+      "@type": "Place",
+      "name": "O'Hare",
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 41.9751638,
+        "longitude": -87.8442422
+      },
+      "sameAs": "https://en.wikipedia.org/wiki/O'Hare_International_Airport"
+    },
+    {
+      "@type": "Place",
+      "name": "Mitchell Airport",
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 42.9465423,
+        "longitude": -87.8972578
+      },
+      "sameAs": "https://en.wikipedia.org/wiki/Milwaukee_Mitchell_International_Airport"
+    },
+    {
+      "@type": "Place",
+      "name": "Midway Airport",
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 49.0098701,
+        "longitude": -118.7893961
+      },
+      "sameAs": "https://en.wikipedia.org/wiki/Midway_International_Airport"
     }
   ]
 }
@@ -148,7 +180,7 @@
       box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
     }
     .sidebar { 
-      width: 320px; 
+      width: 380px; 
       padding: 24px; 
       background: white;
       overflow: auto;
@@ -232,10 +264,92 @@
     .seo-city-list {
       opacity: 0.7;
     }
+    
+    /* Responsive iframe and video styles */
+    .global-content iframe,
+    .global-content video,
+    .global-content embed,
+    .global-content object {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
+    }
+    
+    /* YouTube and video container responsive wrapper */
+    .global-content .video-container {
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      margin: 12px 0;
+    }
+    
+    .global-content .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    
+    /* Auto-wrap YouTube iframes that aren't in containers */
+    .global-content iframe[src*="youtube.com"],
+    .global-content iframe[src*="youtu.be"] {
+      width: 100%;
+      height: 200px;
+      min-height: 180px;
+    }
+    
+    /* Google Maps iframe responsive */
+    .global-content iframe[src*="google.com/maps"] {
+      width: 100%;
+      height: 250px;
+      min-height: 200px;
+    }
+    
+    /* General responsive images */
+    .global-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
+    }
+    
     @media (max-width: 768px) {
       body { flex-direction: column; }
-      .sidebar { width: 100%; border-radius: 12px 12px 0 0; }
+      .sidebar { 
+        width: 100%; 
+        border-radius: 12px 12px 0 0;
+        padding: 16px;
+      }
       #map { border-radius: 0 0 12px 12px; }
+      
+      /* Mobile adjustments for embedded content */
+      .global-content iframe[src*="youtube.com"],
+      .global-content iframe[src*="youtu.be"] {
+        height: 160px;
+      }
+      
+      .global-content iframe[src*="google.com/maps"] {
+        height: 200px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .sidebar {
+        padding: 12px;
+      }
+      
+      .global-content iframe[src*="youtube.com"],
+      .global-content iframe[src*="youtu.be"] {
+        height: 140px;
+      }
+      
+      .global-content iframe[src*="google.com/maps"] {
+        height: 180px;
+      }
     }
   </style>
 </head>
@@ -272,29 +386,75 @@
     // ========== MAP DATA ==========
     const cities = [
       {
-            "id": "san-francisco-ca",
-            "name": "San Francisco",
-            "state": "CA",
-            "lat": 37.7749,
-            "lng": -122.4194,
+            "id": "milwaukee-wi",
+            "name": "Milwaukee",
+            "state": "WI",
+            "lat": 43.0386475,
+            "lng": -87.9090751,
             "zoom": 12,
-            "popupHtml": "<h3>San Francisco</h3>\n<p>The Golden Gate City with stunning views and tech innovation.</p>\n<a href=\"https://example.com\" target=\"_blank\">Learn More →</a>",
+            "popupHtml": "<p>Learn more about Milwaukee.</p>",
             "placeType": "city",
-            "anchor": "San Francisco CA",
-            "popupTitle": "San Francisco",
+            "wikipediaUrl": "https://en.wikipedia.org/wiki/Milwaukee",
+            "url": "https://milwaukeeflylimo.com",
+            "anchor": "Milwaukee Limo Service",
+            "popupTitle": "Milwaukee",
             "popupHeadingTag": "h3"
       },
       {
-            "id": "winneconne-wi",
-            "name": "Winneconne",
+            "id": "mequon-wi",
+            "name": "Mequon",
             "state": "WI",
-            "lat": 44.1108,
-            "lng": -88.7154,
-            "zoom": 13,
-            "popupHtml": "<h3>Winneconne</h3>\n<p>A charming small town in Wisconsin.</p>\n<a href=\"https://example.org\" target=\"_blank\">Explore →</a>",
+            "lat": 43.2219088,
+            "lng": -87.9822969,
+            "zoom": 12,
+            "popupHtml": "<p>Learn more about Mequon.</p>",
             "placeType": "city",
-            "anchor": "Winneconne WI",
-            "popupTitle": "Winneconne",
+            "wikipediaUrl": "https://en.wikipedia.org/wiki/Mequon%2C_Wisconsin",
+            "url": "https://milwaukeeflylimo.com/mequon-wisconsin/",
+            "anchor": "Mequon WI",
+            "popupTitle": "Mequon",
+            "popupHeadingTag": "h3"
+      },
+      {
+            "id": "ohare",
+            "name": "O'Hare",
+            "lat": 41.9751638,
+            "lng": -87.8442422,
+            "zoom": 12,
+            "popupHtml": "<p>Learn more about O'Hare.</p>",
+            "placeType": "city",
+            "wikipediaUrl": "https://en.wikipedia.org/wiki/O'Hare_International_Airport",
+            "url": "https://milwaukeeflylimo.com/ohare-limo-service/",
+            "anchor": "O'Hare Limo Service",
+            "popupTitle": "O'Hare",
+            "popupHeadingTag": "h3"
+      },
+      {
+            "id": "mitchell-airport",
+            "name": "Mitchell Airport",
+            "lat": 42.9465423,
+            "lng": -87.8972578,
+            "zoom": 12,
+            "popupHtml": "<p>Learn more about Mitchell Airport.</p>",
+            "placeType": "airport",
+            "wikipediaUrl": "https://en.wikipedia.org/wiki/Milwaukee_Mitchell_International_Airport",
+            "url": "https://milwaukeeflylimo.com/milwaukee-airport-limo-service/",
+            "anchor": "Milwaukee Airport Limo Service",
+            "popupTitle": "Mitchell Airport",
+            "popupHeadingTag": "h3"
+      },
+      {
+            "id": "midway-airport",
+            "name": "Midway Airport",
+            "lat": 49.0098701,
+            "lng": -118.7893961,
+            "zoom": 12,
+            "popupHtml": "<h2>Midway Airport</h2>\nA distinguished transportation service provider caters to the needs of clients in Milwaukee, Wisconsin, and its surrounding regions, including Chicago, Illinois. This company specializes in a variety of premium transportation solutions, catering to individual clients, businesses, and event organizers who value reliability and comfort. The service boasts a team of professional, experienced chauffeurs and a contemporary fleet of luxurious SUV limousines, including the latest 2023 models.\n\nThe company offers diverse services such as black car service, livery service, airport shuttle service, and chauffeur service, all tailored to meet the unique transportation needs of its clients. Top requested routes include efficient airport transfers to and from General Mitchell International Airport (MKE), O'Hare International Airport (ORD), Midway International Airport (MDW), and connections to Chicago. Additionally, the service provides point-to-point transit to popular destinations like Lambeau Field, Millennium Park, McCormick Place, and other significant landmarks in Milwaukee and Chicago.\n\nPunctuality is a priority for this service, ensuring timely pickups and drop-offs to keep clients' schedules on track. Whether clients are heading to a Green Bay Packers game, a Chicago Cubs match, a bachelorette or bachelor party, Summerfest, Lollapalooza, a golf outing, or a wine tour, the service ensures a luxurious and seamless travel experience. The service extends its reach to cover Cook County, DuPage County, Kenosha County, Racine County, and Sheboygan County, ensuring a broad reach for its valued customers.\n\nThe company's strong customer-focused approach, combined with transparent pricing and no hidden fees, ensures a personalized, stress-free experience. Safety and professionalism are the top priorities, promising clients a secure and smooth ride every time they travel with the service. Choose this service for your luxury transportation needs and enjoy the seamless blend of luxury, convenience, and exceptional service. Experience the highest standards of customer satisfaction and make your travels memorable with this service.",
+            "placeType": "city",
+            "wikipediaUrl": "https://en.wikipedia.org/wiki/Midway_International_Airport",
+            "url": "https://milwaukeeflylimo.com/car-service-chicago-midway/",
+            "anchor": "Midway Car Service",
+            "popupTitle": "Midway",
             "popupHeadingTag": "h3"
       }
 ];
